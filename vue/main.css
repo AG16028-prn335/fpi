@@ -1,0 +1,31 @@
+body{
+	background-color: #E5E9ED;
+}
+#Cliente {
+	margin-left: 5px;
+	margin-top: -100px;
+}
+
+#Centro {
+	margin-right: 700px;
+	margin-bottom: -30px;
+	margin-top: -125px;
+	text-align: center;
+}
+#der {
+	margin-left: 700px;
+	margin-top: -100px;
+}
+#Form{
+	margin-right: 2px;
+	margin-left: 2px;
+	margin-bottom: 3px
+};
+
+#but{
+	boxrder: 1px solid red;
+}
+
+footer-copyright{
+	margin-top: 1px;
+}

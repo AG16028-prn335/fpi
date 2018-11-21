@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>FPI</title>
+	<link href='css/bootstrap.css' rel='stylesheet' />
+	<link href='css/argon.css' rel='stylesheet' />
+	<link href='css/argon.min.css' rel='stylesheet' />
+    <link href='css/rotating-card.css' rel='stylesheet' />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" /> 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+	<h4 align="center">SISTEMA DE OFERTAS PARA LLAMADAS TELEFONICAS</h4>
+		<div id="proyectoVue">
+			<div class="container">
+				<div id="enca">
+					<div id="cliente" class="col-sm-12 col-md-4">
+               				 <ul class="nav nav-pills nav-fill flex-column flex-md-row">
+                  				<li class="nav-item">
+                    				<a class="nav-link mb-sm-3 mb-md-0 active"><h4>Clientes: {{cantidad}}</h4></a>
+                  				</li>
+                			</ul><br>
+						  	<p><input type="range" max="20" min="2" v-model="cantidad"/></p>
+							<button class="btn btn-1 btn-outline-primary" type="button" @click="getCliente">Obtener</button>
+					</div>	
+					<div id="Centro" class="center col-md-2">
+						<ul class="nav nav-pills nav-fill flex-column flex-md-row" >
+                    		<a class="nav-link mb-sm-3 mb-md-0 active" ><h4>Informacion del cliente</h4></a>
+                		</ul><br>
+						<div class="row">
+							<p>
+								<div class="custom-control custom-checkbox mb-3">
+					            	<input class="custom-control-input" id="customCheck2" type="checkbox" v-model="Titulo"/>
+					            	<label class="custom-control-label" for="customCheck2">
+					            	<span>Titulo</span>
+					            	</label>
+					            </div>
+	            			</p>
+	            			<p>
+	            			<div class="custom-control custom-checkbox mb-3">
+					            	<input class="custom-control-input" id="customCheck3" type="checkbox" v-model="Nombre"/>
+					            	<label class="custom-control-label" for="customCheck3">
+					            	<span>Nombre</span>
+					            	</label>
+					            </div>
+	            			</p>
+	            			<p>
+			            		<div class="custom-control custom-checkbox mb-3">
+					            	<input class="custom-control-input" id="customCheck4" type="checkbox" v-model="Apellido"/>
+					            	<label class="custom-control-label" for="customCheck4">
+					            	<span>Apellido</span>
+					            	</label>
+					            </div>
+							</p>
+						</div>
+						<div class="row">
+							<p>
+								<div class="custom-control custom-checkbox mb-3">
+					            	<input class="custom-control-input" id="customCheck5" type="checkbox" v-model="Ciudad"/>
+					            	<label class="custom-control-label" for="customCheck5">
+					            	<span>Ciudad</span>
+					            	</label>
+					            </div>
+	            			</p>
+	            			<p>
+	            				<div class="custom-control custom-checkbox mb-3">
+					            	<input class="custom-control-input" id="customCheck6" type="checkbox" v-model="Genero"/>
+					            	<label class="custom-control-label" for="customCheck6">
+					            	<span>Genero</span>
+					            	</label>
+					            </div>
+	            			</p>
+	            			<p>
+	            			<div class="custom-control custom-checkbox mb-3">
+					            	<input class="custom-control-input" id="customCheck7" type="checkbox" v-model="Email"/>
+					            	<label class="custom-control-label" for="customCheck7">
+					            	<span>Email</span>
+					            	</label>
+					            </div>
+					         </p>
+						</div>
+					</div>	
+
+					<div id="der" class="col-lg-4 col-sm-6">
+            			<div class="form-group">
+              				<div class="input-group mb-4">
+              				<ul class="nav nav-pills nav-fill flex-column flex-md-row" >
+                    		<a class="nav-link mb-sm-3 mb-md-0 active" ><h4>BUSCAR CLIENTE:</h4></a>
+                		</ul><br>
+                				<div class="input-group-prepend">
+                  					<span class="input-group-text"><app-icon img="repeat"></app-icon></span>
+				                  <input class="form-control" placeholder="Search" type="text" v-model="names">
+                				</div>
+              				</div>
+            			</div>
+          			</div>
+				 	<div class="col-sm-10 col-sm-offest-1">
+				            <div class="col-sm-4" v-for="(cliente,conta) in filtrar">
+				               <div class="card-container">
+					                <div class="card">
+					                    <div class="front">
+					                        <div class="cover"><img src="css/rotating_card_thumb2.png"/></div>
+					                        <div class="user"><img class="img-circle" v-bind:src="cliente.picture.large"/></div>
+					                        <div class="content">
+					                            <div class="main">
+					                               <h6 v-if="Nombre || Apellido"><app-icon img="user"></app-icon><span v-if="Nombre"> {{cliente.name.first}}</span><span v-if="Apellido"> {{cliente.name.last}}</span></h6>
+					                                <h6 class="profession" v-if="Titulo">{{cliente.name.title}}</h6>
+					                                <h6 v-if="Ciudad"><app-icon img="home"></app-icon> Cuidad:{{cliente.location.city}}</h6>
+					                                <h6 v-if="Genero"><app-icon img="heart"></app-icon> Genero: {{cliente.gender=='male' ? 'Masculino': 'Femenino'}}</h6>
+					                                <p v-if="Email"><app-icon img="envelope"></app-icon> Email: {{cliente.email}}</p>
+					                            </div>
+					                            <div class="footer"><i class="fa fa-mail-forward"></i> Auto Rotation</div>
+					                        </div>
+					                    </div> <!-- end front panel -->
+					                    <div class="back">
+					                        	<div class="header"><h5 class="motto">"DESCRIPCION DEL CLIENTE"</h5></div>
+					                        	<div class="content">
+					                            	<div class="main">
+					                            		<p class="text-center">
+					                            			<h4 class="text-center">Edad: {{cliente.dob.age}} años</h6>
+					                                	<h6><app-icon img="earphone"></app-icon>Telefono: {{cliente.phone}}</h6>
+					                                	<h6><app-icon img="phone"></app-icon>Celular: {{cliente.cell}}</h6>
+					                                	<h6> <app-icon img="map-marker"></app-icon>localidad: {{cliente.location.street}}, {{cliente.location.state}}</h4>
+					                            		</p>
+														<div class="stats-container">
+				                                    		<div class="stats">
+				                                        	<button type="button" class="btn btn-1 btn-outline-info" @click="ClienteAceptar(conta)"><app-icon img="ok"></app-icon></button>
+				                                        		<p>Acpetar</p>
+				                                    		</div>
+				                                    		<div class="stats"><h4></h4><p></p></div>
+				                                    		<div class="stats">
+				                                        		<button type="button" class="btn btn-1 btn-outline-info" @click="ClienteRechazar(conta)"><app-icon img="remove"></app-icon></button>
+				                                        		<p>Rechazar</p>
+				                                    		</div>
+				                                		</div>
+					                            	</div>
+					                        	</div>
+					                        	<div class="footer">
+					                            	<div class="social-links text-center">
+					                                	<a href="" class="facebook"><i class="fa fa-facebook fa-fw"></i></a>
+					                                	<a href="" class="google"><i class="fa fa-google-plus fa-fw"></i></a>
+					                                	<a href="" class="twitter"><i class="fa fa-twitter fa-fw"></i></a>
+					                            	</div>
+					                        	</div>
+					                    </div> 
+				                	</div> 
+				            	</div> 
+				            </div>
+				    </div>
+				</div>
+
+			</div>
+			<ul class="nav nav-pills nav-pills-circle mb-3" id="tabs_2" role="tablist">
+                <li class="nav-item">
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link rounded-circle active" id="home-tab" data-toggle="tab" role="tab" aria-controls="home" aria-selected="true">
+                    <label><h3>{{Aceptados}}</h3></label>
+                  </a>
+                  <label>Aceptados</label>
+                </li>
+                <li class="nav-item">
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="home-tab" data-toggle="tab" role="tab" aria-controls="contact" aria-selected="false">
+                    <label><h3>{{Rechazados}}</h3></label>
+                  </a>
+                  <label>Rechazados</label>
+                </li>
+              </ul>
+		</div>
+
+			<footer class="page-footer">
+		 			<div class="footer-copyright">
+	            		<div class="container">AG16028 Arevalo Gonzalez, Ronald Balmore &copy; 2018 </div>
+	          		</div>
+			</footer>
+		
+		<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+		<script src="vueindex.js"></script>
+</body>
+</html>
